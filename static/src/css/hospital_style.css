@@ -1,0 +1,39 @@
+.o_form_view .o_form_sheet {
+    max-width: 1140px;
+}
+
+.hospital_title {
+    color: #7C7BAD;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.patient_card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.status_draft {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status_confirmed {
+    background-color: #bfdbfe;
+    color: #1e40af;
+}
+
+.status_done {
+    background-color: #bbf7d0;
+    color: #166534;
+}
+
+.status_cancelled {
+    background-color: #fecaca;
+    color: #991b1b;
+}

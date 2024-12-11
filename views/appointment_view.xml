@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hospital_appointment_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" 
+                            class="oe_highlight" state="draft"
+                            />
+                            <!-- groups="hospital_management.group_hospital_nurse" -->
+                    <button name="action_done" string="Mark Done" type="object" 
+                            class="oe_highlight" state="confirm"/>
+                        <!-- groups="hospital_management.group_hospital_doctor" -->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_id" required="1" />
+                            <field name="doctor_id" required="1" />
+                        </group>
+                        <group>
+                            <field name="appointment_date" required="1" />
+                            <field name="duration" required="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Prescriptions" >
+                        <!-- groups="hospital_management.group_hospital_doctor" -->
+                            <field name="prescription_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+            <!-- appointment Tree View -->
+    <record id="view_hospital_appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.tree</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="duration"/>
+
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- patient Search View -->
+    <record id="view_hospital_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Patient" name="group_by_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Doctor" name="group_by_doctor_id" context="{'group_by': 'doctor_id'}"/>
+                    <filter string="Blood" name="group_by_blood_group" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+        <!-- Appointment Action -->
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

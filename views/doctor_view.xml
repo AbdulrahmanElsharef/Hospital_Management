@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hospital_doctor_form" model="ir.ui.view">
+        <field name="name">hospital.doctor.form</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" 
+                                class="oe_stat_button" icon="fa-archive"
+                                >
+                                <!-- groups="hospital_management.group_hospital_manager" -->
+                            <field name="active" widget="boolean_button"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="specialization" />
+                        </group>
+                        <group>
+                            <field name="phone" required="1"/>
+                            <field name="email" required="1"/>
+                            <!-- <field name="user_id" groups="hospital_management.group_hospital_manager"/> -->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Patients" >
+                            <field name="patient_ids"/>
+                            <!-- groups="hospital_management.group_hospital_doctor" -->
+                        </page>
+                        <page string="Appointments">
+                            <field name="appointment_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="patient_id"/>
+                                    <field name="appointment_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- doctor Search View -->
+    <record id="view_hospital_doctor_tree" model="ir.ui.view">
+        <field name="name">hospital.doctor.tree</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="specialization"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- doctor Search View -->
+    <record id="view_hospital_doctor_search" model="ir.ui.view">
+        <field name="name">hospital.doctor.search</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="specialization"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <group expand="0" string="Group By">
+                    <filter string="Specialization" name="group_by_specialization" context="{'group_by': 'specialization'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- Doctor Action -->
+    <record id="action_hospital_doctor" model="ir.actions.act_window">
+        <field name="name">Doctors</field>
+        <field name="res_model">hospital.doctor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
