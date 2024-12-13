@@ -37,3 +37,20 @@
     background-color: #fecaca;
     color: #991b1b;
 }
+
+
+.report .oe_table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.report .oe_table th,
+.report .oe_table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.report .oe_table th {
+    background-color: #f2f2f2;
+}

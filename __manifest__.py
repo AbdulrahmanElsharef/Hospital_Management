@@ -20,9 +20,11 @@
         'security/ir.model.access.csv',
         'views/patient_view.xml',
         'views/appointment_view.xml',
+        'views/appointment_view_inherit.xml',
         'views/doctor_view.xml',
         'views/prescription_view.xml',
         'views/hospital_menus.xml',
+        'reports/appointment_report.xml',
     ],
     'assets': {
         'web.assets_backend': [

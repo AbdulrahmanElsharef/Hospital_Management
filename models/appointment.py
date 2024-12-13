@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 class HospitalAppointment(models.Model):
     _name = 'hospital.appointment'
@@ -12,7 +13,12 @@ class HospitalAppointment(models.Model):
     # readonly=True, copy=False
     patient_id = fields.Many2one('hospital.patient', string='Patient', required=True)
     doctor_id = fields.Many2one('hospital.doctor', string='Doctor', required=True)
+    last_appointment = fields.Datetime(string='Last_Appointment', required=True)
     appointment_date = fields.Datetime(string='Appointment Date', required=True)
+    is_late= fields.Boolean(
+        string='Is_Late',
+    )
+    
     duration = fields.Float(string='Duration (Hours)', default=1.0)
     
     state = fields.Selection([
@@ -46,13 +52,19 @@ class HospitalAppointment(models.Model):
                 raise ValidationError("Appointment date cannot be in the past!")
             
     def action_confirm(self):
-        self.state = 'confirmed'
+        self.state = 'confirm'
 
     def action_done(self):
         self.state = 'done'
 
     def action_cancel(self):
-        self.state = 'cancelled'
+        self.state = 'cancel'
 
     def action_draft(self):
         self.state = 'draft'
+        
+    def check_appointment_date(self):
+        appointment_ids=self.search([])
+        for rec in appointment_ids:
+             if rec.appointment_date  > rec.last_appointment:
+                rec.is_late=True 
